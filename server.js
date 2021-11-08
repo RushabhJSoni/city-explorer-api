@@ -6,12 +6,12 @@ const app = require('express')();
 const axios = require('axios');
 const cors = require('cors');
 app.use(cors());
-const handleGetWeather = require("./Weather.js");
+const getWeather = require("./Weather.js");
 const handleGetMovies = require("./Movies.js")
 
 const PORT = process.env.PORT 
 
-app.get('/weather', handleGetWeather);
+app.get('/weather', getWeather);
 app.get('/movies', handleGetMovies);
 
 app.get('/*' , (req,res) => res.status(403).send('not found'))

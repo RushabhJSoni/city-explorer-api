@@ -1,10 +1,20 @@
 'use strict'
 const axios = require('axios');
+const cache = require('./moviecache.js')
 
 
 
 async function handleGetMovies(req,res){
     const {query} = req.query;
+
+    if (cache[{query}]) {
+      console.log("cache hit");
+      res.status(200).send(cache[{query}]);
+    } else {
+      console.log("cache miss")
+    }
+      
+
     try {
       let response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&images&language=en-US&query=${query}`);
       let movieData = response.data.results.map(results => new Movies(results));
